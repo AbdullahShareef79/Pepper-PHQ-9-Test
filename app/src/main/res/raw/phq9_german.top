@@ -1,0 +1,6 @@
+topic: ~phq9_german()
+
+u: (Not at all) $response=0
+u: (Several days) $response=1
+u: (More than half the days) $response=2
+u: (Nearly every day) $response=3

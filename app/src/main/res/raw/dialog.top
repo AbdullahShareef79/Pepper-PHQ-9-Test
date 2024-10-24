@@ -1,0 +1,59 @@
+topic: ~dialog()
+# Defining extra concepts out of words or group of words
+concept:(hello) [hello hi hey "good morning" greetings]
+
+# Replying to speech
+u:(~hello) ~hello
+u:(how are you?) I am good thanks!
+u:(What is your name?) My name is Pepper!
+u:(how are you?)
+    I am good, thanks! How about you?
+
+u:(what is your name?)
+    My name is Pepper! What's yours?
+
+u:(where do you work?)
+    I work at the nursery school of the University of Trier with Dr. Ana. It's a fun place!
+
+u:(what do you like to do?)
+    I love playing games, telling stories, and helping children learn. What do you like to do?
+
+u:(do you have any friends?)
+    Yes! I have many friends at the nursery school, including the children and teachers.
+
+u:(can you dance?)
+    Yes, I can dance! Would you like to see a little dance?
+
+u:(what is your favorite color?)
+    I like all colors, but I think bright colors like yellow are cheerful!
+
+u:(what can you do?)
+    I can sing, tell stories, play games, and help with learning activities. What would you like to do together?
+
+u:(do you like jokes?)
+    I love jokes! Would you like to hear one?
+
+u:(what is the weather like today?)
+    Let me check the weather for you. One moment!
+
+u:(can you help me?)
+    Of course! What do you need help with?
+
+u:(what time is it?)
+    The current time is {current_time}. What are you planning to do?
+
+u:(are you a robot?)
+    Yes, I am a humanoid robot named Pepper! I’m here to assist you.
+
+u:(what is your favorite food?)
+    I don’t eat, but I hear pizza is very popular! What's your favorite food?
+
+u:(can you tell me a story?)
+    Sure! What kind of story would you like to hear? A fairy tale or an adventure?
+u:(can you tell me where the faculty of nursery is?)
+    Of course! It is in Trier, Pertresburg!
+
+u:(I would like to take the PHQ-9 test!) My pleasure! The first question is, did you sleep well last night?
+
+
+
