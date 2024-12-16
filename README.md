@@ -14,7 +14,7 @@ This project enables Pepper Robot to conduct the PHQ-9 test through voice and sc
 
 ## Technologies Used
 - **Pepper Robot SDK 2.9**: Core development platform for Pepper Robot.
-- **Java**: Programming language used for implementing the application.
+- **Kotlin**: Programming language used for implementing the application.
 - **Android Studio**: Development environment for building and testing the project.
 - **QiChat**: Dialogue management for smooth conversational flow.
 
