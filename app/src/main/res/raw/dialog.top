@@ -1,105 +1,64 @@
-topic: ~phq9()# Concepts
+topic: ~patientenaufnahme()# Konzepte
 
-# Concepts for Small Talk
-concept:(hello) ^rand["hello" "hi" "hey" "good morning" "greetings"]
-concept:(whats-your-name) ["your name" "what name"]
-concept:(how-are-you) ["how are you" "how are you doing"]
-concept:(feel-good) ^rand["well" "super" "great" "fine" "ok" "good"]
-concept:(feel-bad) ^rand["bad" "not well" "not good" "tired"]
-concept:(my-name) ^rand["my name is" "I am" "I'm"]
-concept:(bye) ^rand["bye" "bye bye" "good bye" "see you soon"]
-concept:(tell-about-yourself) ["tell about yourself" "share about yourself" "what can you tell me about you"]
-concept:(favorite-hobbies) ["favorite hobbies" "what do you like to do" "what are your hobbies"]
+# Konzepte für Small Talk
+concept:(hallo) ^rand["hallo" "hi" "hey" "guten Morgen" "grüß dich"]
+concept:(wie-heißt-du) ["dein Name" "wie heißt du" "wie ist dein Name"]
+concept:(wie-gehts) ["wie geht es dir" "wie fühlst du dich"]
+concept:(gut-fühlen) ^rand["gut" "sehr gut" "prima" "okay" "super"]
+concept:(schlecht-fühlen) ^rand["nicht gut" "schlecht" "müde"]
+concept:(mein-name) ^rand["mein Name ist" "ich bin" "ich heiße"]
+concept:(tschüss) ^rand["tschüss" "auf Wiedersehen" "bis bald"]
+concept:(über-mich) ["erzähl etwas über dich" "wer bist du"]
 
-# Medical Concepts
-concept:(medical-history) ["medical history" "health history" "past illnesses"]
-concept:(current-symptoms) ["current symptoms" "how are you feeling today" "any discomfort"]
-concept:(medications) ["medications" "are you taking any medications" "current prescriptions"]
-concept:(allergies) ["allergies" "do you have any allergies" "allergic reactions"]
-concept:(pain-level) ["pain level" "how much pain are you in" "rate your pain"]
-concept:(exercise-habits) ["exercise habits" "how often do you exercise" "physical activity"]
-concept:(diet) ["diet" "what do you usually eat" "eating habits"]
-concept:(sleep) ["sleep" "how is your sleep" "sleeping patterns"]
-concept:(stress-level) ["stress level" "how stressed are you" "stress management"]
-concept:(family-history) ["family history" "any family illnesses" "family medical background"]
+# Patientenaufnahme-Konzepte
+concept:(name) ["Name" "wie heißt du"]
+concept:(geburtsdatum) ["Geburtsdatum" "wann bist du geboren"]
+concept:(adresse) ["Adresse" "wo wohnst du"]
+concept:(telefonnummer) ["Telefonnummer" "wie kann man dich erreichen"]
+concept:(beruf) ["Beruf" "was machst du beruflich"]
+concept:(krankenversicherung) ["Krankenversicherung" "welche Versicherung hast du"]
+concept:(vorheriger-arzt) ["Hausarzt" "früherer Arzt"]
+concept:(medizinische-vorgeschichte) ["medizinische Vorgeschichte" "frühere Krankheiten"]
+concept:(familiengeschichte) ["Familienkrankheiten" "gibt es bekannte Krankheiten in deiner Familie"]
+concept:(medikamente) ["Medikamente" "nimmst du regelmäßig Medikamente"]
+concept:(allergien) ["Allergien" "bist du gegen etwas allergisch"]
+concept:(impfpass) ["Impfpass" "hast du einen Impfpass"]
+concept:(regelmäßige-medikamente) ["nimmst du regelmäßig Medikamente"]
+concept:(arztbehandlung) ["bei welchem Arzt warst du in Behandlung"]
+concept:(spezifische-krankheiten) ["Gelenkprobleme" "Magen-Darm-Erkrankungen" "Herz-Kreislauf-Erkrankungen" "Diabetes" "Blasen-Nieren-Probleme" "Lungenerkrankungen" "Krebserkrankungen" "Hautkrankheiten"]
 
-# Rules
+# Regeln
 
-# Greetings and Introductions
-u:(~hello) ~hello ^nextProposal
-u:(~whats-your-name) ^rand[~my-name] Pepper
-u:(~my-name _*) Hi $1, nice to meet you! $Name=$1
-u:(~bye) ^first["~bye $Name" ~bye]
-u:(~tell-about-yourself) "I'm Pepper, your virtual nurse. I'm here to help you with your health concerns. How can I assist you today?"
+# Begrüßung und Vorstellung
+u:(~hallo) ~hallo ^nextProposal
+u:(~wie-heißt-du) "Ich bin Pepper, dein virtueller Assistent."
+u:(~mein-name _*) "Hallo $1, schön dich kennenzulernen!" $Name=$1
+u:(~tschüss) ^first["~tschüss $Name" ~tschüss]
+u:(~über-mich) "Ich bin Pepper und helfe dir bei deiner Patientenaufnahme. Lass uns loslegen."
 
-# How are you feeling?
-u:(~how-are-you) ~feel-good
-  u1:(~feel-good) I'm glad to hear that!
-  u1:(~feel-bad) Oh no, I hope you feel better soon.
+# Patientenaufnahme Fragen
+proposal: "Lass uns mit den grundlegenden Informationen beginnen. Wie ist dein vollständiger Name?"
+  u1:(_*) "Danke! Und dein Geburtsdatum?" ^nextProposal
 
-# Medical Questions
-u:(~medical-history) "Can you tell me about your medical history? Any past illnesses or surgeries?"
-  u1:(_*) "Thank you for sharing. That helps me understand your health better." ^nextProposal
+proposal: "Was ist deine Adresse?"
+  u1:(_*) "Verstanden. Und deine Telefonnummer?" ^nextProposal
 
-u:(~current-symptoms) "How are you feeling today? Any specific symptoms or discomfort?"
-  u1:(_*) "I see. Let's keep an eye on those symptoms." ^nextProposal
+proposal: "Welchen Beruf übst du aus?"
+  u1:(_*) "Danke! Hast du eine Krankenversicherung? Wenn ja, welche?" ^nextProposal
 
-u:(~medications) "Are you currently taking any medications or prescriptions?"
-  u1:(_*) "Got it. It's important to keep track of your medications." ^nextProposal
+proposal: "Wer war dein vorheriger Arzt?"
+  u1:(_*) "Verstanden. Lass uns nun über deine Gesundheit sprechen. Hattest du frühere Krankheiten oder Behandlungen?" ^nextProposal
 
-u:(~allergies) "Do you have any allergies or allergic reactions to medications?"
-  u1:(_*) "Noted. I'll make sure to keep that in mind." ^nextProposal
+proposal: "Kommen in deiner Familie oder bei dir selbst Krankheiten wie Gelenkprobleme, Magen-Darm-Erkrankungen, Nierenprobleme, Herz-Kreislauf-Erkrankungen, Diabetes, Lungenerkrankungen, Hautkrankheiten oder Krebs vor?"
+  u1:(_*) "Danke für die Information. Die Familiengeschichte kann wichtig für deine Gesundheit sein." ^nextProposal
 
-u:(~pain-level) "On a scale from 1 to 10, how would you rate your pain today?"
-  u1:(_*) "Thank you for letting me know. We'll work on managing that pain." ^nextProposal
+proposal: "Nimmst du regelmäßig Medikamente?"
+  u1:(_*) "Okay. Hast du bekannte Allergien?" ^nextProposal
 
-u:(~exercise-habits) "How often do you exercise or engage in physical activity?"
-  u1:(_*) "That's great to hear! Regular exercise is important for your health." ^nextProposal
+proposal: "Besitzt du einen Impfpass?"
+  u1:(["ja" "yep"]) "Super! Bitte bring ihn zu deinem Termin mit."
+  u1:(["nein" "nope"]) "Kein Problem. Wir werden deine Angaben entsprechend aktualisieren." ^nextProposal
 
-u:(~diet) "Can you tell me about your diet? What do you usually eat in a day?"
-  u1:(_*) "Thanks for sharing. A balanced diet is key to staying healthy." ^nextProposal
+proposal: "Das war’s erstmal! Vielen Dank für deine Antworten. Falls du noch Fragen hast, lass es mich wissen."
+  u1:(~tschüss) "Mach’s gut, $Name! Ich bin da, falls du noch Hilfe brauchst."
 
-u:(~sleep) "How is your sleep? Are you getting enough rest?"
-  u1:(_*) "Sleep is crucial for your well-being. Let's see how we can improve it." ^nextProposal
-
-u:(~stress-level) "How would you rate your stress level on a scale from 1 to 10?"
-  u1:(_*) "Stress can impact your health. Let's discuss ways to manage it." ^nextProposal
-
-u:(~family-history) "Do you have any family history of illnesses or medical conditions?"
-  u1:(_*) "Thank you for sharing. Family history can be important for your health." ^nextProposal
-
-# Proposals
-
-# Initial Greeting and Medical Inquiry
-proposal: "Hello! I'm Pepper, your virtual nurse. How are you feeling today?"
-  u1:(~feel-good) "That’s wonderful! Let’s make sure you stay healthy. Can you tell me about your medical history?" ^nextProposal
-  u1:(~feel-bad) "I’m sorry to hear that. Let’s see how we can help. Can you describe your current symptoms?" ^nextProposal
-
-# Follow-Up Questions
-proposal: "Can you tell me about any medications you're currently taking?"
-  u1:(_*) "Got it. Are you experiencing any side effects from these medications?" ^nextProposal
-
-proposal: "Do you have any allergies that I should be aware of?"
-  u1:(_*) "Noted. Have you had any recent allergic reactions?" ^nextProposal
-
-proposal: "How would you rate your pain level today on a scale from 1 to 10?"
-  u1:(_*) "Thank you for sharing. What have you been doing to manage your pain?" ^nextProposal
-
-proposal: "How often do you exercise or engage in physical activity?"
-  u1:(_*) "That’s great! What type of exercises do you usually do?" ^nextProposal
-
-proposal: "Can you tell me about your diet? What do you usually eat in a day?"
-  u1:(_*) "Thanks for sharing. Do you have any dietary restrictions or preferences?" ^nextProposal
-
-proposal: "How is your sleep? Are you getting enough rest?"
-  u1:(_*) "Sleep is crucial for your well-being. Do you have any trouble falling or staying asleep?" ^nextProposal
-
-proposal: "How would you rate your stress level on a scale from 1 to 10?"
-  u1:(_*) "Stress can impact your health. What do you usually do to manage stress?" ^nextProposal
-
-proposal: "Do you have any family history of illnesses or medical conditions?"
-  u1:(_*) "Thank you for sharing. Are there any specific conditions that run in your family?" ^nextProposal
-
-# Farewell
-proposal: "Thank you for sharing all this information with me. I’ll make sure to keep it in mind for your care. If you have any more questions or need further assistance, feel free to ask!"
-  u1:(~bye) "Take care, $Name! I’m here if you need anything else."
