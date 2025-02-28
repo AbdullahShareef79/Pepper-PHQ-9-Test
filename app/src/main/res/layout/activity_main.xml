@@ -14,28 +14,10 @@
         android:padding="16dp">
 
         <Button
-            android:id="@+id/buttonNotAtAll"
+            android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not at all" />
-
-        <Button
-            android:id="@+id/buttonSeveralDays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Several days" />
-
-        <Button
-            android:id="@+id/buttonMoreThanHalfDays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="More than half the days" />
-
-        <Button
-            android:id="@+id/buttonNearlyEveryDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nearly every day" />
+            android:text="Next" />
 
         <ImageView
             android:id="@+id/imageView"

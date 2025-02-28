@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.phq9app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

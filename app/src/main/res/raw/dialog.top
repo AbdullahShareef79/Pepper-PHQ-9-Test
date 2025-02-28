@@ -1,59 +1,177 @@
-topic: ~dialog()
-# Defining extra concepts out of words or group of words
-concept:(hello) [hello hi hey "good morning" greetings]
+topic: ~patient_questionnaire()
 
-# Replying to speech
-u:(~hello) ~hello
-u:(how are you?) I am good thanks!
-u:(What is your name?) My name is Pepper!
-u:(how are you?)
-    I am good, thanks! How about you?
+# Basic greetings and responses
+concept:(hello) [hello hi hey "good morning" greetings hallo "guten tag" "guten morgen"]
+concept:(yes) [yes yeah ja jawohl "ja klar" "natürlich"]
+concept:(no) [no nein "nee" "nicht"]
 
-u:(what is your name?)
-    My name is Pepper! What's yours?
+# Greetings
+u:(~hello) ~hello! Ich bin Pepper. Kann ich Ihnen mit dem Patientenfragebogen helfen?
 
-u:(where do you work?)
-    I work at the nursery school of the University of Trier with Dr. Ana. It's a fun place!
+# Starting the questionnaire
+u:(["Ich möchte den Fragebogen ausfüllen" "Fragebogen" "starte den Fragebogen" "ich bin ein neuer Patient"])
+    Guten Tag! Ich werde Ihnen einige Fragen stellen, um Sie besser kennen zu lernen. Bitte beantworten Sie die Fragen zu Ihrem Gesundheitsstatus. Sind Sie bereit?
 
-u:(what do you like to do?)
-    I love playing games, telling stories, and helping children learn. What do you like to do?
+# Confirmation to start
+u:(~yes)
+    Ausgezeichnet! Beginnen wir mit dem Fragebogen.
+    ^start(questionnaire)
 
-u:(do you have any friends?)
-    Yes! I have many friends at the nursery school, including the children and teachers.
+# Handle questionnaire questions
+proposal: %questionnaire
+    Wie ist Ihr Nachname?
 
-u:(can you dance?)
-    Yes, I can dance! Would you like to see a little dance?
+u:(_*)
+    ^bookmark(collect_nachname, $1)
+    Verstanden. Wie ist Ihr Vorname?
 
-u:(what is your favorite color?)
-    I like all colors, but I think bright colors like yellow are cheerful!
+u:(_*)
+    ^bookmark(collect_vorname, $1)
+    Alles klar. Wann haben Sie Geburtstag?
 
-u:(what can you do?)
-    I can sing, tell stories, play games, and help with learning activities. What would you like to do together?
+u:(_*)
+    ^bookmark(collect_geburtstag, $1)
+    Danke. Wie lautet Ihre Anschrift?
 
-u:(do you like jokes?)
-    I love jokes! Would you like to hear one?
+u:(_*)
+    ^bookmark(collect_anschrift, $1)
+    Verstanden. Wie ist Ihre Telefonnummer?
 
-u:(what is the weather like today?)
-    Let me check the weather for you. One moment!
+u:(_*)
+    ^bookmark(collect_telefon, $1)
+    Danke. Was ist Ihr Beruf?
 
-u:(can you help me?)
-    Of course! What do you need help with?
+u:(_*)
+    ^bookmark(collect_beruf, $1)
+    Verstanden. Wie heißt Ihre Krankenversicherung?
 
-u:(what time is it?)
-    The current time is {current_time}. What are you planning to do?
+u:(_*)
+    ^bookmark(collect_versicherung, $1)
+    Danke. Wer war Ihr ehemaliger Hausarzt?
 
-u:(are you a robot?)
-    Yes, I am a humanoid robot named Pepper! I’m here to assist you.
+u:(_*)
+    ^bookmark(collect_hausarzt, $1)
+    Verstanden. Bei welchem Arzt waren Sie vorher in Behandlung?
 
-u:(what is your favorite food?)
-    I don’t eat, but I hear pizza is very popular! What's your favorite food?
+u:(_*)
+    ^bookmark(collect_vorbehandlung, $1)
+    Danke. Jetzt komme ich zu Fragen über Ihre Gesundheit. Haben Sie Rücken- oder Gelenkserkrankungen?
 
-u:(can you tell me a story?)
-    Sure! What kind of story would you like to hear? A fairy tale or an adventure?
-u:(can you tell me where the faculty of nursery is?)
-    Of course! It is in Trier, Pertresburg!
+u:(~yes)
+    ^bookmark(collect_ruecken, ja)
+    Haben Sie Erkrankungen der Blase oder Nieren?
 
-u:(I would like to take the PHQ-9 test!) My pleasure! The first question is, did you sleep well last night?
+u:(~no)
+    ^bookmark(collect_ruecken, nein)
+    Haben Sie Erkrankungen der Blase oder Nieren?
 
+u:(~yes)
+    ^bookmark(collect_blase, ja)
+    Haben Sie Herz-Kreislauferkrankungen?
 
+u:(~no)
+    ^bookmark(collect_blase, nein)
+    Haben Sie Herz-Kreislauferkrankungen?
 
+u:(~yes)
+    ^bookmark(collect_herz, ja)
+    Haben Sie Stoffwechselerkrankungen?
+
+u:(~no)
+    ^bookmark(collect_herz, nein)
+    Haben Sie Stoffwechselerkrankungen?
+
+u:(~yes)
+    ^bookmark(collect_stoffwechsel, ja)
+    Haben Sie Magen-Darm-Erkrankungen?
+
+u:(~no)
+    ^bookmark(collect_stoffwechsel, nein)
+    Haben Sie Magen-Darm-Erkrankungen?
+
+u:(~yes)
+    ^bookmark(collect_magen, ja)
+    Haben Sie Hauterkrankungen?
+
+u:(~no)
+    ^bookmark(collect_magen, nein)
+    Haben Sie Hauterkrankungen?
+
+u:(~yes)
+    ^bookmark(collect_haut, ja)
+    Haben Sie Lungenerkrankungen?
+
+u:(~no)
+    ^bookmark(collect_haut, nein)
+    Haben Sie Lungenerkrankungen?
+
+u:(~yes)
+    ^bookmark(collect_lunge, ja)
+    Haben Sie Krebserkrankungen?
+
+u:(~no)
+    ^bookmark(collect_lunge, nein)
+    Haben Sie Krebserkrankungen?
+
+u:(~yes)
+    ^bookmark(collect_krebs, ja)
+    Haben Sie sonstige Erkrankungen?
+
+u:(~no)
+    ^bookmark(collect_krebs, nein)
+    Haben Sie sonstige Erkrankungen?
+
+u:(~yes)
+    Welche sonstigen Erkrankungen haben Sie?
+
+u:(_*)
+    ^bookmark(collect_sonstige, $1)
+    Nehmen Sie regelmäßig Medikamente ein?
+
+u:(~no)
+    ^bookmark(collect_sonstige, keine)
+    Nehmen Sie regelmäßig Medikamente ein?
+
+u:(~yes)
+    Welche Medikamente nehmen Sie ein?
+
+u:(_*)
+    ^bookmark(collect_medikamente, $1)
+    Leiden Sie an Allergien?
+
+u:(~no)
+    ^bookmark(collect_medikamente, keine)
+    Leiden Sie an Allergien?
+
+u:(~yes)
+    Gegen welche Allergien leiden Sie?
+
+u:(_*)
+    ^bookmark(collect_allergien, $1)
+    Besitzen Sie einen Impfausweis?
+
+u:(~no)
+    ^bookmark(collect_allergien, keine)
+    Besitzen Sie einen Impfausweis?
+
+u:(~yes)
+    ^bookmark(collect_impfausweis, ja)
+    Vielen Dank für die Beantwortung aller Fragen! Wir werden diese Informationen für Ihre Behandlung verwenden. Einen schönen Tag noch!
+
+u:(~no)
+    ^bookmark(collect_impfausweis, nein)
+    Vielen Dank für die Beantwortung aller Fragen! Wir werden diese Informationen für Ihre Behandlung verwenden. Einen schönen Tag noch!
+
+# Handle general robot questions during the process
+u:(wie heißt du)
+    Mein Name ist Pepper! Können wir jetzt mit dem Fragebogen fortfahren?
+
+u:(wo arbeitest du)
+    Ich arbeite hier in der Praxis und helfe bei der Aufnahme von Patientendaten. Können wir jetzt mit dem Fragebogen fortfahren?
+
+u:(was kannst du)
+    Ich kann Ihnen helfen, den Patientenfragebogen auszufüllen. Möchten wir fortfahren?
+
+# Cancel questionnaire
+u:(["abbrechen" "stop" "hör auf" "beenden"])
+    Ich beende den Fragebogen. Wenn Sie später weitermachen möchten, lassen Sie es mich wissen.
