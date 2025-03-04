@@ -37,7 +37,7 @@ u:(~tschüss) ^first["~tschüss $Name" ~tschüss]
 u:(~über-mich) "Ich bin Pepper und helfe dir bei deiner Patientenaufnahme. Lass uns loslegen."
 
 # Patientenaufnahme Fragen
-proposal: "Lass uns mit den grundlegenden Informationen beginnen. Wie ist dein vollständiger Name?"
+proposal: "Hallo, mein Name ist Pepper und ich werde heute Ihre Krankenschwester sein. Beginnen wir mit den grundlegenden Informationen. Wie ist dein vollständiger Name?"
   u1:(_*) "Danke! Und dein Geburtsdatum?" ^nextProposal
 
 proposal: "Was ist deine Adresse?"
